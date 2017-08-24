@@ -13,8 +13,11 @@ alias cdd="cd - > /dev/null"
 #######################################
 alias gs='git status '
 alias ga='git add '
+alias gaall='git add . -A'
 alias gb='git branch '
 alias gc='git commit'
+alias gcam='git commit -am'
+alias gpmaster='git push origin master'
 alias gd='git diff'
 alias go='git checkout '
 alias gk='gitk --all&'
@@ -26,6 +29,7 @@ alias get='git '
 #######################################
 alias update="sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get dist-upgrade -y && sudo apt-get autoclean && sudo apt-get clean && sudo apt-get autoremove -y "
 alias auto='sudo apt-get autoremove'
+alias pi-up="sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade && sudo rpi-update && sudo apt-get autoclean && sudo apt-get autoremove"
 # edit this file
 alias editbash="nano $HOME/.bash_aliases"
 # if user is not root, pass all commands via sudo #
