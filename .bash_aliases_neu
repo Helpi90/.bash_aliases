@@ -1,6 +1,6 @@
-#######################################
-##	Aliases Directory	     ##
-#######################################
+#----------------------------------------------------------------------
+#   Aliases Directory
+#----------------------------------------------------------------------
 alias ..='cd ../'
 alias ...='cd ../../'
 alias ....='cd ../../../'
@@ -8,9 +8,9 @@ alias gohome="cd ~"
 alias helpi="cd /home/helpi"
 alias pi="cd /home/pi"
 alias cdd="cd - > /dev/null"
-#######################################
-##	GitHub commandos	     ##
-#######################################
+#----------------------------------------------------------------------
+#   GitHub commandos
+#----------------------------------------------------------------------
 alias gs='git status '
 alias ga='git add '
 alias gaall='git add . -A'
@@ -24,9 +24,9 @@ alias gk='gitk --all&'
 alias gx='gitx --all'
 alias got='git '
 alias get='git '
-#######################################
-##	Setup commandos	     ##
-#######################################
+#----------------------------------------------------------------------
+#   Setup commandos
+#----------------------------------------------------------------------
 alias update="sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get dist-upgrade -y && sudo apt-get autoclean && sudo apt-get clean && sudo apt-get autoremove -y "
 alias auto='sudo apt-get autoremove'
 alias pi-up="sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade && sudo rpi-update && sudo apt-get autoclean && sudo apt-get autoremove"
@@ -52,9 +52,9 @@ function ps? () {
 }
 # Gibt die Größen der Ordner an
 alias getsize="du -hc -d 0 `ls -trx --hide=log | tr '\n' ' '` | sh"
-#######################################
-##	LS commandos	     ##
-#######################################
+#----------------------------------------------------------------------
+#   LS commandos
+#----------------------------------------------------------------------
 # show hidden files only
 alias ls.='ls -d .* --color=auto'
 
@@ -78,20 +78,20 @@ alias lszeigen="ls -lh" # Dateien + Rechte + Größe
 alias llab='ls -laFh --time-style="+%d-%m-%y"'
 # show extra options
 alias dir='ls -alv'
-#######################################
-##	Docker	     ##
-#######################################
+#----------------------------------------------------------------------
+#   Docker
+#----------------------------------------------------------------------
 alias dops="docker ps -a"
 alias doi="docker images"
 alias doirm='docker rmi $(docker images -q)'
 alias dost='docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)'
 alias doc='docker-compose'
-#######################################
-##	tar commandos	     ##
-#######################################
+#----------------------------------------------------------------------
+#   tar commandos
+#----------------------------------------------------------------------
 alias tarzeigen="tar -ztvf"
-alias tarc='tar -zcvf'
-alias tard='tar -zxvf'
+alias mktar='tar -cvzf'
+alias untar='tar -xvzf'
 
 function tarz() {
         [ "$1" != "" ] && tar -czRf $1.tar.gz $1 && echo "$1.tar.gz created successfully!"|| echo "Usage: tarz [folder_or_file]"
@@ -104,29 +104,29 @@ function tarj() {
 function utar() {
         [ "$1" != "" ] && tar -xvf $1 || echo "Usage: utar [tar_file_name]"
 }
-#######################################
-##	Zip commandos	     ##
-#######################################
+#----------------------------------------------------------------------
+#   Zip commandos
+#----------------------------------------------------------------------
 alias makezip="/usr/bin/zip -rq "  # /usr/bin/zip -rq /backup/test_`date "+%Y-%m-%d"`.zip ./
 mcd () { mkdir -p "$1" && cd "$1"; }        # mcd:          Makes new Dir and jumps inside
 skript () { touch $1.sh && chmod +x $1.sh && nano $1.sh; }     # skript         Erstellt eine Datei, führt chmod +x aus und öffnet nano
-#######################################
-##	Borg-Backup	     ##
-#######################################
+#----------------------------------------------------------------------
+#   Borg-Backup
+#----------------------------------------------------------------------
 alias borg_check="sudo borg check" # borg check /pfad/zum/repo
 alias borg_list="sudo borg list" # borg list /pfad/zum/repo
 alias borg_mount="sudo borg mount" # borg mount /pfad/zum/repo /mnt/repo
 alias borg_prune="sudo borg prune –dry-run –keep-daily=7 –keep-weekly=4" # + /pfad/zum/repo
 alias borg_info="sudo borg info" # borg info /pfad/zum/repo::ARCHIV
-#######################################
-##	Grep commandos	     ##
-#######################################
+#----------------------------------------------------------------------
+#   Grep commandos
+#----------------------------------------------------------------------
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
-#######################################
-##	System	     ##
-#######################################
+#----------------------------------------------------------------------
+#   System
+#----------------------------------------------------------------------
 alias exe='chmod +x'
 alias gping='ping google.com -c 1'
 #copy and go to dir
@@ -156,18 +156,31 @@ alias path='echo -e ${PATH//:/\\n}'
 alias now='date +"%T'
 alias nowtime=now
 alias nowdate='date +"%d-%m-%Y"'
-#######################################
-##	Openhab	     ##
-#######################################
+#----------------------------------------------------------------------
+#   Openhab
+#----------------------------------------------------------------------
 alias logoh="tail -f /var/log/openhab2/openhab.log -f /var/log/openhab2/events.log"
 alias rroh="sudo service openhab2 restart"
-#######################################
-##	Cat commandos	     ##
-#######################################
+#----------------------------------------------------------------------
+#   Cat commandos
+#----------------------------------------------------------------------
 alias ali="cat /home/$USER/.bash_aliases | grep '^alias' | sed 's/alias //g' | grep -e '^[^=]*' "
-#######################################
-##	Functionen	     ##
-#######################################
+#----------------------------------------------------------------------
+#   AWS Stuff
+#----------------------------------------------------------------------
+alias dynamodb-start="docker run -d -p 8000:8000 -v ~/.dynamodb/data:/var/dynamodb_data --name dynamodb --restart always ryanratcliff/dynamodb"
+alias dynamodb-stop="docker stop dynamodb"
+
+alias postgis-start="docker run -d -p 5433:5432 -v ~/.postgis/data:/var/lib/postgresql/data --name postgis -e POSTGRES_PASSWORD=postgres --restart always mdillon/postgis"
+alias postgis-stop="docker stop postgis"
+#----------------------------------------------------------------------
+#   Whats-Server
+#----------------------------------------------------------------------
+alias whats="python WhatsAppGDExtract.py -sync"
+alias whatsdata="cp -a WhatsApp/Databases/msgstore.db.crypt12 /home/helpi/database/msgstore`date +%Y%m%d`.db.crypt12"
+#----------------------------------------------------------------------
+#   Functionen
+#----------------------------------------------------------------------
 # easily add aliases to ~/.bash_aliases #  alias2bash Openhab_reboot Openhab_reboot "service openhab2 restart"
 function alias2bash {
 	cat ~/.bash_aliases > ~/.bash_aliasesx;
@@ -278,3 +291,11 @@ function aptu { sudo apt-get update $1 $2 $3 $4 $5 $6 $7 $8 $9 ;}
 # Wed Feb 24 21:51:53 GST 2016
 # updates
 function aptuu { sudo aptitude update $1 $2 $3 $4 $5 $6 $7 $8 $9 ;}
+
+#----------------------------------------------------------------------
+#   NEU 15.08.17
+#----------------------------------------------------------------------
+#Back Up and date
+function bkdate() {
+  cp $1 $1.`date +%Y%m%d`;
+}
