@@ -87,6 +87,14 @@ alias doirm='docker rmi $(docker images -q)'
 alias dost='docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)'
 alias doc='docker-compose'
 #----------------------------------------------------------------------
+#   SSH Copy
+#----------------------------------------------------------------------
+#Back Up and date
+#scp -r Quelldatei.bsp Benutzer@Host:Verzeichnis/Zieldatei.bsp
+function sshcopy() {
+  scp -r $1 $2;
+}
+#----------------------------------------------------------------------
 #   tar commandos
 #----------------------------------------------------------------------
 alias tarzeigen="tar -ztvf"
