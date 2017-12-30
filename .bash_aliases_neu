@@ -71,7 +71,7 @@ function ps? () {
         ps aux | grep $1
 }
 # Gibt die Größen der Ordner an
-alias getsize="du -hc -d 0 `ls -trx --hide=log | tr '\n' ' '` | sh"
+alias getsize="sudo /scripts/getbackupsize.sh $1"
 #----------------------------------------------------------------------
 #   LS commandos
 #----------------------------------------------------------------------
