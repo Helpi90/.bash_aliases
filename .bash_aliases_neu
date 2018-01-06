@@ -1,6 +1,6 @@
-#----------------------------------------------------------------------
-#   Aliases Directory
-#----------------------------------------------------------------------
+#######################################
+##      Aliases Directory            ##
+#######################################
 alias ..='cd ../'
 alias ...='cd ../../'
 alias ....='cd ../../../'
@@ -8,48 +8,24 @@ alias gohome="cd ~"
 alias helpi="cd /home/helpi"
 alias pi="cd /home/pi"
 alias cdd="cd - > /dev/null"
-#----------------------------------------------------------------------
-#   GitHub commandos
-#----------------------------------------------------------------------
-alias gl='git pull --prune'
-alias glg="git log --graph --decorate --oneline --abbrev-commit"
-alias glga="glg --all"
-alias gp='git push origin HEAD'
-alias gpa='git push origin --all'
-alias gd='git diff'
+#######################################
+##      GitHub commandos             ##
+#######################################
+alias gs='git status '
+alias ga='git add '
+alias gb='git branch '
 alias gc='git commit'
-alias gca='git commit -a'
-alias gco='git checkout'
-alias gb='git branch'
-alias ga='git add'
-alias gaa='git add -A'
-alias gcm='git commit -m'
-alias gcam='git commit -a -m'
-alias gs='git status -sb'
-alias gcl='git clone'
-alias gcb='git-copy-branch-name'
-alias gpr='gp && git pr'
-
-gi() {
-    curl -s "https://www.gitignore.io/api/$*"
-}
-
-#   ---------------------------
-#   4.  SEARCHING
-#   ---------------------------
-
-alias qfind="find . -name "                 # qfind:    Quickly search for file
-ff () { /usr/bin/find . -name "$@" ; }      # ff:       Find file under the current directory
-ffs () { /usr/bin/find . -name "$@"'*' ; }  # ffs:      Find file whose name starts with a given string
-ffe () { /usr/bin/find . -name '*'"$@" ; }  # ffe:      Find file whose name ends with a given string
-
-
-#----------------------------------------------------------------------
-#   Setup commandos
-#----------------------------------------------------------------------
+alias gd='git diff'
+alias go='git checkout '
+alias gk='gitk --all&'
+alias gx='gitx --all'
+alias got='git '
+alias get='git '
+#######################################
+##      Setup commandos      ##
+#######################################
 alias update="sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get dist-upgrade -y && sudo apt-get autoclean && sudo apt-get clean && sudo apt-get autoremove -y "
 alias auto='sudo apt-get autoremove'
-alias pi-up="sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade && sudo rpi-update && sudo apt-get autoclean && sudo apt-get autoremove"
 # edit this file
 alias editbash="nano $HOME/.bash_aliases"
 # if user is not root, pass all commands via sudo #
@@ -72,9 +48,9 @@ function ps? () {
 }
 # Gibt die Größen der Ordner an
 alias getsize="sudo /scripts/getbackupsize.sh $1"
-#----------------------------------------------------------------------
-#   LS commandos
-#----------------------------------------------------------------------
+#######################################
+##      LS commandos         ##
+#######################################
 # show hidden files only
 alias ls.='ls -d .* --color=auto'
 
@@ -98,28 +74,20 @@ alias lszeigen="ls -lh" # Dateien + Rechte + Größe
 alias llab='ls -laFh --time-style="+%d-%m-%y"'
 # show extra options
 alias dir='ls -alv'
-#----------------------------------------------------------------------
-#   Docker
-#----------------------------------------------------------------------
+#######################################
+##      Docker       ##
+#######################################
 alias dops="docker ps -a"
 alias doi="docker images"
 alias doirm='docker rmi $(docker images -q)'
 alias dost='docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)'
 alias doc='docker-compose'
-#----------------------------------------------------------------------
-#   SSH Copy
-#----------------------------------------------------------------------
-#Back Up and date
-#scp -r Quelldatei.bsp Benutzer@Host:Verzeichnis/Zieldatei.bsp
-function sshcopy() {
-  scp -r $1 $2;
-}
-#----------------------------------------------------------------------
-#   tar commandos
-#----------------------------------------------------------------------
+#######################################
+##      tar commandos        ##
+#######################################
 alias tarzeigen="tar -ztvf"
-alias mktar='tar -cvzf'
-alias untar='tar -xvzf'
+alias tarc='tar -zcvf'
+alias tard='tar -zxvf'
 
 function tarz() {
         [ "$1" != "" ] && tar -czRf $1.tar.gz $1 && echo "$1.tar.gz created successfully!"|| echo "Usage: tarz [folder_or_file]"
@@ -132,52 +100,29 @@ function tarj() {
 function utar() {
         [ "$1" != "" ] && tar -xvf $1 || echo "Usage: utar [tar_file_name]"
 }
-
-#   extract:  Extract most know archives with one command
-#   ---------------------------------------------------------
-    extract () {
-        if [ -f $1 ] ; then
-          case $1 in
-            *.tar.bz2)   tar xjf $1     ;;
-            *.tar.gz)    tar xzf $1     ;;
-            *.bz2)       bunzip2 $1     ;;
-            *.rar)       unrar e $1     ;;
-            *.gz)        gunzip $1      ;;
-            *.tar)       tar xf $1      ;;
-            *.tbz2)      tar xjf $1     ;;
-            *.tgz)       tar xzf $1     ;;
-            *.zip)       unzip $1       ;;
-            *.Z)         uncompress $1  ;;
-            *.7z)        7z x $1        ;;
-            *)     echo "'$1' cannot be extracted via extract()" ;;
-             esac
-         else
-             echo "'$1' is not a valid file"
-         fi
-    }
-#----------------------------------------------------------------------
-#   Zip commandos
-#----------------------------------------------------------------------
+#######################################
+##      Zip commandos        ##
+#######################################
 alias makezip="/usr/bin/zip -rq "  # /usr/bin/zip -rq /backup/test_`date "+%Y-%m-%d"`.zip ./
 mcd () { mkdir -p "$1" && cd "$1"; }        # mcd:          Makes new Dir and jumps inside
 skript () { touch $1.sh && chmod +x $1.sh && nano $1.sh; }     # skript         Erstellt eine Datei, führt chmod +x aus und öffnet nano
-#----------------------------------------------------------------------
-#   Borg-Backup
-#----------------------------------------------------------------------
+#######################################
+##      Borg-Backup          ##
+#######################################
 alias borg_check="sudo borg check" # borg check /pfad/zum/repo
 alias borg_list="sudo borg list" # borg list /pfad/zum/repo
 alias borg_mount="sudo borg mount" # borg mount /pfad/zum/repo /mnt/repo
 alias borg_prune="sudo borg prune –dry-run –keep-daily=7 –keep-weekly=4" # + /pfad/zum/repo
 alias borg_info="sudo borg info" # borg info /pfad/zum/repo::ARCHIV
-#----------------------------------------------------------------------
-#   Grep commandos
-#----------------------------------------------------------------------
+#######################################
+##      Grep commandos       ##
+#######################################
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
-#----------------------------------------------------------------------
-#   System
-#----------------------------------------------------------------------
+#######################################
+##      System       ##
+#######################################
 alias exe='chmod +x'
 alias gping='ping google.com -c 1'
 #copy and go to dir
@@ -204,53 +149,40 @@ alias rd="rmdir"
 alias remac='ifdown wlan0 && sleep 3 && macchanger -r wlan0 && sleep 3 && ifup wlan0'
 
 alias path='echo -e ${PATH//:/\\n}'
-alias now='date +"%T'
+alias now='date +"%T"'
 alias nowtime=now
 alias nowdate='date +"%d-%m-%Y"'
-#----------------------------------------------------------------------
-#   Openhab
-#----------------------------------------------------------------------
+#######################################
+##      Openhab      ##
+#######################################
 alias logoh="tail -f /var/log/openhab2/openhab.log -f /var/log/openhab2/events.log"
 alias rroh="sudo service openhab2 restart"
-#----------------------------------------------------------------------
-#   Cat commandos
-#----------------------------------------------------------------------
+#######################################
+##      Cat commandos        ##
+#######################################
 alias ali="cat /home/$USER/.bash_aliases | grep '^alias' | sed 's/alias //g' | grep -e '^[^=]*' "
-#----------------------------------------------------------------------
-#   AWS Stuff
-#----------------------------------------------------------------------
-alias dynamodb-start="docker run -d -p 8000:8000 -v ~/.dynamodb/data:/var/dynamodb_data --name dynamodb --restart always ryanratcliff/dynamodb"
-alias dynamodb-stop="docker stop dynamodb"
-
-alias postgis-start="docker run -d -p 5433:5432 -v ~/.postgis/data:/var/lib/postgresql/data --name postgis -e POSTGRES_PASSWORD=postgres --restart always mdillon/postgis"
-alias postgis-stop="docker stop postgis"
-#----------------------------------------------------------------------
-#   Whats-Server
-#----------------------------------------------------------------------
-alias whats="python WhatsAppGDExtract.py -sync"
-alias whatsdata="cp -a WhatsApp/Databases/msgstore.db.crypt12 /home/helpi/database/msgstore`date +%Y%m%d`.db.crypt12"
-#----------------------------------------------------------------------
-#   Functionen
-#----------------------------------------------------------------------
+#######################################
+##      Functionen           ##
+#######################################
 # easily add aliases to ~/.bash_aliases #  alias2bash Openhab_reboot Openhab_reboot "service openhab2 restart"
 function alias2bash {
-	cat ~/.bash_aliases > ~/.bash_aliasesx;
-	echo -e "\n# ($(date)) $1\nalias $2=\"$3\"\n" > ~/.bash_aliasesy;
-	cat ~/.bash_aliasesx ~/.bash_aliasesy > ~/.bash_aliases;
-	rm ~/.bash_aliasesx ~/.bash_aliasesy;
-	nubash;
-	cat ~/.bash_aliases;
-	}
+        cat ~/.bash_aliases > ~/.bash_aliasesx;
+        echo -e "\n# ($(date)) $1\nalias $2=\"$3\"\n" > ~/.bash_aliasesy;
+        cat ~/.bash_aliasesx ~/.bash_aliasesy > ~/.bash_aliases;
+        rm ~/.bash_aliasesx ~/.bash_aliasesy;
+        nubash;
+        cat ~/.bash_aliases;
+        }
 
 # easily add functions to ~/.bash_aliases
 function function2bash {
-	cat ~/.bash_aliases > ~/.bash_aliasesx;
-	echo -e "\n# $(date) \n# $1\nfunction $2 { $3 ;}\n" > ~/.bash_aliasesy;
-	cat ~/.bash_aliasesx ~/.bash_aliasesy > ~/.bash_aliases;
-	rm ~/.bash_aliasesx ~/.bash_aliasesy;
-	nubash;
-	cat ~/.bash_aliases;
-	}
+        cat ~/.bash_aliases > ~/.bash_aliasesx;
+        echo -e "\n# $(date) \n# $1\nfunction $2 { $3 ;}\n" > ~/.bash_aliasesy;
+        cat ~/.bash_aliasesx ~/.bash_aliasesy > ~/.bash_aliases;
+        rm ~/.bash_aliasesx ~/.bash_aliasesy;
+        nubash;
+        cat ~/.bash_aliases;
+        }
 
 # easily add a routine to bash that will be run during login
 function routine2bash {
@@ -263,33 +195,33 @@ function routine2bash {
         }
 # copy this user's .bash_aliases to all users
 function copybash {
-	X=$(stat -c %U ~);
-	#if [ "$X" != "root" ]; then
-	#	echo "Run 'sudo -E copybash'";
-	#	return;
-	#fi;
-	if [ "$1" != "" ]; then
-		TGT_HOME=$(eval echo ~$1);
-		sudo cp ~/.bash_aliases $TGT_HOME/.bash_aliases &> /dev/null; #the '&> /dev/null' suppresses the "cp: '/fileA' and '/fileA' are the same file" error
-		sudo chown $1: $TGT_HOME/.bash_aliases;
-		#source $TGT_HOME/.bashrc; #this runs on the current user's ~, would need to use sudo to sun the command as the tgt_user, not worth it
-		eval echo ~/.bash_aliases copied to $TGT_HOME;
-	else
-		for i in $(dir -A -d /home/*/ /root*/); do
-			TGT_USER=$(stat -c %U $i)
-			if [[ "$USER" != "$TGT_USER" ]]; then
-				sudo mv $i.bash_aliases $i.bash_aliases.old &> /dev/null;
-				sudo chown $TGT_USER: $i.bash_aliases.old;
-				echo -e "\n$i.bash_aliases renamed to $i.bash_aliases.old"
-				sudo cp ~/.bash_aliases $i.bash_aliases &> /dev/null; #must run 'sudo copybash root' to copy to root's home
-				sudo chown $TGT_USER: $i.bash_aliases;
-				#source $i.bashrc;
-				eval echo ~/.bash_aliases copied to $i;
-			fi;
-		done;
-	fi;
-	echo "";
-	}
+        X=$(stat -c %U ~);
+        #if [ "$X" != "root" ]; then
+        #       echo "Run 'sudo -E copybash'";
+        #       return;
+        #fi;
+        if [ "$1" != "" ]; then
+                TGT_HOME=$(eval echo ~$1);
+                sudo cp ~/.bash_aliases $TGT_HOME/.bash_aliases &> /dev/null; #the '&> /dev/null' suppresses the "cp: '/fileA' and '/fileA' are the same file" error
+                sudo chown $1: $TGT_HOME/.bash_aliases;
+                #source $TGT_HOME/.bashrc; #this runs on the current user's ~, would need to use sudo to sun the command as the tgt_user, not worth it
+                eval echo ~/.bash_aliases copied to $TGT_HOME;
+        else
+                for i in $(dir -A -d /home/*/ /root*/); do
+                        TGT_USER=$(stat -c %U $i)
+                        if [[ "$USER" != "$TGT_USER" ]]; then
+                                sudo mv $i.bash_aliases $i.bash_aliases.old &> /dev/null;
+                                sudo chown $TGT_USER: $i.bash_aliases.old;
+                                echo -e "\n$i.bash_aliases renamed to $i.bash_aliases.old"
+                                sudo cp ~/.bash_aliases $i.bash_aliases &> /dev/null; #must run 'sudo copybash root' to copy to root's home
+                                sudo chown $TGT_USER: $i.bash_aliases;
+                                #source $i.bashrc;
+                                eval echo ~/.bash_aliases copied to $i;
+                        fi;
+                done;
+        fi;
+        echo "";
+        }
 # find something in the current directory
 function llfind { ll -A -h | grep -i $1; }
 # #find something in chosen directory
@@ -342,11 +274,39 @@ function aptu { sudo apt-get update $1 $2 $3 $4 $5 $6 $7 $8 $9 ;}
 # Wed Feb 24 21:51:53 GST 2016
 # updates
 function aptuu { sudo aptitude update $1 $2 $3 $4 $5 $6 $7 $8 $9 ;}
-
-#----------------------------------------------------------------------
-#   NEU 15.08.17
-#----------------------------------------------------------------------
+#######################################
+##      NEU 15.08.17         ##
+#######################################
 #Back Up and date
 function bkdate() {
   cp $1 $1.`date +%Y%m%d`;
+}
+
+function ck {
+    # colors
+    c1=256
+    c2=117
+    color_alternation=true
+    PIDS=$(ps aux | grep $1  | grep -v "grep" | awk '{print $2}')
+    printf "%-25s %-25s %-25s %-25s %-25s %-25s\n" "PID" "PROCESSO" "%CPU" "MEM" "RUN TIME" "PATH"
+    for pid in $PIDS
+    do
+        path="$(pwdx $pid | awk '{print $2}')/$(ps aux | grep -v "grep" | grep " $pid " | awk '{print $NF}')"
+        process=$(echo $path | sed -e 's/.*\///g')
+        runing_time=$(ps -p $pid -o etime=)
+        cpu_usage=$(ps aux | grep " $pid " | grep -v "grep" | awk  '{print $3}' )
+        #mem_usage=$(ps aux | grep $pid | grep -v "grep" | awk  '{print $4}' )
+        mem_usage=$(ps aux | grep " $pid " | awk '{sum+=$6} END {print sum / 1024}')
+
+        if [[ $path =~ /home/sefaz/ror.*$ ]]; then
+            process=$(echo $path | sed -e 's/.*\/ror\///g' | sed -e 's/\/.*//g')
+        fi
+        if $color_alternation; then
+            printf "$(tput setaf $c2)%-25s %-25s %-25s %-25s %-25s %-25s$(tput sgr0)\n" $pid $process $cpu_usage $(printf '%.0f' $mem_usage) $runing_time $path
+            color_alternation=false
+        else
+            printf "$(tput setaf $c1)%-25s %-25s %-25s %-25s %-25s %-25s$(tput sgr0)\n" $pid $process $cpu_usage $(printf '%.0f' $mem_usage) $runing_time $path
+            color_alternation=true
+        fi
+    done
 }
