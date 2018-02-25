@@ -158,6 +158,10 @@ alias nowdate='date +"%d-%m-%Y"'
 alias logoh="tail -f /var/log/openhab2/openhab.log -f /var/log/openhab2/events.log"
 alias rroh="sudo service openhab2 restart"
 #######################################
+##      Netzwerk commandos        ##
+#######################################
+alias pingg='ping 192.168.2.$1'
+#######################################
 ##      Cat commandos        ##
 #######################################
 alias ali="cat /home/$USER/.bash_aliases | grep '^alias' | sed 's/alias //g' | grep -e '^[^=]*' "
