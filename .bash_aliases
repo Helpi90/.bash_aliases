@@ -59,12 +59,15 @@ alias ping='ping -c 8'
 ## Find
 #######################################
 alias findall="find . -name "*lua*" -type f -exec du -ch {} + | grep $1"
-
-
 #######################################
 ##      LS commandos         ##
 #######################################
 # show hidden files only
+# print the last ten modified files in the specified directory
+function last {
+    ls -lt $1 | head
+}
+
 alias ls.='ls -d .* --color=auto'
 
 # show extra options
@@ -88,9 +91,17 @@ alias llab='ls -laFh --time-style="+%d-%m-%y"'
 # show extra options
 alias dir='ls -alv'
 #######################################
-##      Docker       ##
+##                Docker             ##
 #######################################
+
+# Show all alias related docker
+dalias() { alias | grep 'docker' | sed "s/^\([^=]*\)=\(.*\)/\1 => \2/"| sed "s/['|\']//g" | sort; }
+
+# Bash into running container
+dbash() { docker exec -it $(docker ps -aqf "name=$1") bash; }
+
 alias dops="docker ps -a"
+alias dop="docker ps"
 alias doi="docker images"
 alias doirm='docker rmi $(docker images -q)'
 alias dost='docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)'
@@ -98,7 +109,10 @@ alias doc='docker-compose'
 function docker-clean() {
   docker rmi -f $(docker images -q -a -f dangling=true)
 }
-alias dostopall="docker stop $(docker ps -a -q)"
+# Stop all containers
+docker-stop-all() { docker stop $(docker ps -a -q); }
+alias dstopall=docker-stop-all
+alias dockps='docker ps --format "table {{.ID}}\t{{.Image}}\t{{.Status}}\t{{.Names}}"'
 #######################################
 ##      tar commandos        ##
 #######################################
@@ -180,8 +194,22 @@ alias egrep='egrep --color=auto'
 # skript         Erstellt eine Datei, führt chmod +x aus und öffnet nano
 skript () { 
         touch $1.sh && chmod +x $1.sh && nano $1.sh; 
-        }     
-
+}     
+newScript()
+{
+        file=$1
+        if [ -a $file ];
+        then
+          nano $file
+        else
+          touch $file
+          echo "#!/bin/bash" > $file
+          echo "# Datum : $(date +%Y-%m-%d)" > $file
+          echo
+          chmod +x $file
+          nano $file
+        fi
+}
 alias exe='chmod +x'
 alias gping='ping google.com -c 1'
 #copy and go to dir
@@ -216,8 +244,11 @@ alias nowdate='date +"%d-%m-%Y"'
 #######################################
 ##      Openhab      ##
 #######################################
-alias logoh="tail -f /var/log/openhab2/openhab.log -f /var/log/openhab2/events.log"
-alias rroh="sudo service openhab2 restart"
+alias logoh="tail -f /opt/openhab/userdata/logs/openhab.log -f /opt/openhab/userdata/logs/events.log"
+alias logohrule="tail -f /opt/openhab/userdata/logs/rules.log"
+alias rroh="docker restart openhab"
+alias ohrefresh="docker stop openhab && docker rm openhab && /docker/containers/openhab/custom/openhabdocker"
+alias ohexec="docker exec -it openhab bash"
 #######################################
 ##      Netzwerk commandos        ##
 #######################################
@@ -226,67 +257,24 @@ alias pingg='ping 192.168.2.$1'
 ##      Cat commandos        ##
 #######################################
 alias ali="cat /home/$USER/.bash_aliases | grep '^alias' | sed 's/alias //g' | grep -e '^[^=]*' "
-#######################################
-##      Functionen           ##
-#######################################
-# easily add aliases to ~/.bash_aliases #  alias2bash Openhab_reboot Openhab_reboot "service openhab2 restart"
-function alias2bash {
-        cat ~/.bash_aliases > ~/.bash_aliasesx;
-        echo -e "\n# ($(date)) $1\nalias $2=\"$3\"\n" > ~/.bash_aliasesy;
-        cat ~/.bash_aliasesx ~/.bash_aliasesy > ~/.bash_aliases;
-        rm ~/.bash_aliasesx ~/.bash_aliasesy;
-        nubash;
-        cat ~/.bash_aliases;
-        }
 
-# easily add functions to ~/.bash_aliases
-function function2bash {
-        cat ~/.bash_aliases > ~/.bash_aliasesx;
-        echo -e "\n# $(date) \n# $1\nfunction $2 { $3 ;}\n" > ~/.bash_aliasesy;
-        cat ~/.bash_aliasesx ~/.bash_aliasesy > ~/.bash_aliases;
-        rm ~/.bash_aliasesx ~/.bash_aliasesy;
-        nubash;
-        cat ~/.bash_aliases;
-        }
+# IsNewer 1 als 2
+IsNewer() {
+     if [ $# -ne 2 ]; then
+          echo "Usage: IsNewer file1 file2" 1>&2
+          exit 1
+     fi
 
-# easily add a routine to bash that will be run during login
-function routine2bash {
-        cat ~/.bash_aliases > ~/.bash_aliasesx;
-        echo -e "\n# ($(date)) $1\n$2\n" > ~/.bash_aliasesy;
-        cat ~/.bash_aliasesx ~/.bash_aliasesy > ~/.bash_aliases;
-        rm ~/.bash_aliasesx ~/.bash_aliasesy;
-        nubash;
-        cat ~/.bash_aliases;
-        }
-# copy this user's .bash_aliases to all users
-function copybash {
-        X=$(stat -c %U ~);
-        #if [ "$X" != "root" ]; then
-        #       echo "Run 'sudo -E copybash'";
-        #       return;
-        #fi;
-        if [ "$1" != "" ]; then
-                TGT_HOME=$(eval echo ~$1);
-                sudo cp ~/.bash_aliases $TGT_HOME/.bash_aliases &> /dev/null; #the '&> /dev/null' suppresses the "cp: '/fileA' and '/fileA' are the same file" error
-                sudo chown $1: $TGT_HOME/.bash_aliases;
-                #source $TGT_HOME/.bashrc; #this runs on the current user's ~, would need to use sudo to sun the command as the tgt_user, not worth it
-                eval echo ~/.bash_aliases copied to $TGT_HOME;
-        else
-                for i in $(dir -A -d /home/*/ /root*/); do
-                        TGT_USER=$(stat -c %U $i)
-                        if [[ "$USER" != "$TGT_USER" ]]; then
-                                sudo mv $i.bash_aliases $i.bash_aliases.old &> /dev/null;
-                                sudo chown $TGT_USER: $i.bash_aliases.old;
-                                echo -e "\n$i.bash_aliases renamed to $i.bash_aliases.old"
-                                sudo cp ~/.bash_aliases $i.bash_aliases &> /dev/null; #must run 'sudo copybash root' to copy to root's home
-                                sudo chown $TGT_USER: $i.bash_aliases;
-                                #source $i.bashrc;
-                                eval echo ~/.bash_aliases copied to $i;
-                        fi;
-                done;
-        fi;
-        echo "";
-        }
+     if [ ! -f $1 -o ! -f $2 ]; then
+          return 1       # No
+     fi
+
+     if [ -n "`find $1 -newer $2 -print`" ]; then
+          return 0       # Yes
+     else
+          return 1       # No
+     fi
+}
 # find something in the current directory
 function llfind { ll -A -h | grep -i $1; }
 # #find something in chosen directory
@@ -340,35 +328,8 @@ function ck {
         fi
     done
 }
-# print the last ten modified files in the specified directory
-function last {
-    ls -lt $1 | head
-}
 
-# copy a file to the clipboard from the command line
-function copyfile {
-    cat $1 | xclip -selection clipboard
-}
-
-# shortcut for recursively grepping
-function gr {
-    grep -r $1 .
-}
-
-# shortcut for compiling and running Java programs (I use this for competitions)
-function j {
-    filename="${1%.*}"
-    javac $filename.java
-    if [[ $? == 0 ]]; then
-       java $filename
-    fi
-}
-
-# shortcut for compiling and running C++ programs
-function g {
-    filename="${1%.*}"
-    g++ $filename.cpp -o $filename
-    if [[ $? == 0 ]]; then
-       ./$filename
-    fi
-}
+#----------------------------------------------------------------------
+#   NEU 26,10,2017
+#----------------------------------------------------------------------
+alias checkmm="npm run config:check"
