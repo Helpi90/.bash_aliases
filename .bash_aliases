@@ -175,7 +175,7 @@ mcd () { mkdir -p "$1" && cd "$1"; }        # mcd:          Makes new Dir and ju
 mkcd () {
     mkdir -pv -p "$@" && cd $_
 }
-skript () { touch $1.sh && chmod +x $1.sh && nano $1.sh; }     # skript         Erstellt eine Datei, führt chmod +x aus und öffnet nano
+
 #######################################
 ##      Borg-Backup          ##
 #######################################
@@ -194,22 +194,24 @@ alias egrep='egrep --color=auto'
 ##      System       ##
 #######################################
 # skript         Erstellt eine Datei, führt chmod +x aus und öffnet nano
-skript () { 
-        touch $1.sh && chmod +x $1.sh && nano $1.sh; 
-}     
 newScript()
 {
-        file=$1
-        if [ -a $file ];
+        title=$1
+        title=${title// /_}
+        # Convert uppercase to lowercase.
+        title=${title,,}
+        # Add .sh to the end of the title if it is not there already.
+        [ "${title: -3}" != '.sh' ] && title=${title}.sh
+        if [ -a $title ];
         then
-          nano $file
+          nano $title
         else
-          touch $file
-          echo "#!/bin/bash" > $file
-          echo "# Datum : $(date +%Y-%m-%d)" > $file
+          touch $title
+          echo "#!/bin/bash" > $title
+          echo "# Datum : $(date +%Y-%m-%d)" > $title
           echo
-          chmod +x $file
-          nano $file
+          chmod +x $title
+          nano $title
         fi
 }
 alias exe='chmod +x'
@@ -297,10 +299,6 @@ function bkdate() {
   cp $1 $1.`date +%Y%m%d`;
 }
 alias cp="cp -arv"
-#----------------------------------------------------------------------
-#   NEU 26,10,2017
-#----------------------------------------------------------------------
-alias checkmm="npm run config:check"
 
 function ck {
     # colors
@@ -335,3 +333,31 @@ function ck {
 #   NEU 26,10,2017
 #----------------------------------------------------------------------
 alias checkmm="npm run config:check"
+##------------------------------------------------------------------------
+##    NEU 24.04.2018
+##------------------------------------------------------------------------
+function backupfile()
+{
+    backupnr=1
+    file=$1
+
+    ### Alle Variablen einlesen und letzte Backupdateinummer herausfinden ##
+    set -- $1.backup-???
+    lastname=${!#}
+    backupnr=${lastname##*backup-}
+    backupnr=${backupnr%%.*}
+    backupnr=${backupnr//\?/0}
+
+    ### Backupdateinummer automatisch um +1 bis maximal 30 erhoehen ##
+    if [ "$[backupnr++]" -ge 30 ]; then
+            echo "test"
+    fi
+
+    backupnr=000${backupnr}
+    backupnr=${backupnr: -3}
+    filename=backup-${backupnr}
+    backupfile=$(echo  $file.$filename)
+
+    # Backupdatei erstellen
+    cp $file $backupfile
+}
