@@ -67,7 +67,9 @@ alias findall="find . -name "*lua*" -type f -exec du -ch {} + | grep $1"
 function last {
     ls -lt $1 | head
 }
-
+alias lstree='ls -R | grep ":$" | sed -e '"'"'s/:$//'"'"' \
+                -e '"'"'s/[^-][^\/]*\//--/g'"'"' -e '"'"'s/^/   /'"'"' \
+                -e '"'"'s/-/|/'"'"''
 alias ls.='ls -d .* --color=auto'
 
 # show extra options
