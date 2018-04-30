@@ -198,8 +198,6 @@ newScript()
 {
         title=$1
         title=${title// /_}
-        # Convert uppercase to lowercase.
-        title=${title,,}
         # Add .sh to the end of the title if it is not there already.
         [ "${title: -3}" != '.sh' ] && title=${title}.sh
         if [ -a $title ];
