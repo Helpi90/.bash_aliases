@@ -90,6 +90,9 @@ alias ll='ls -alF'
 alias l="ls -l"
 alias lszeigen="ls -lh" # Dateien + Rechte + Größe
 alias llab='ls -laFh --time-style="+%d-%m-%y"'
+showHome() {
+    ls -ls $HOME
+}
 # show extra options
 alias dir='ls -alv'
 #######################################
@@ -213,6 +216,11 @@ newScript()
         fi
 }
 alias exe='chmod +x'
+rechte()
+{
+
+}
+
 alias gping='ping google.com -c 1'
 #copy and go to dir
 cpg (){
