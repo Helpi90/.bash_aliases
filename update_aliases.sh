@@ -15,6 +15,9 @@ DIR="$(realpath .)"
 # Download new bash_aliases #
 curl https://raw.githubusercontent.com/Defjam121/.bash_aliases/master/.bash_aliases > $DIR/.newAliases
 file=".bash_aliases"
+
+cd ~/
+
 if [ ! -f $DIR/$file 1>&2 ]
 then
     touch $DIR/$file
