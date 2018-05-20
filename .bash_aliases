@@ -11,6 +11,7 @@ alias pi="cd /home/pi"
 #######################################
 ##      GitHub commandos             ##
 #######################################
+alias gp='git pull'
 alias gs='git status '
 alias ga='git add '
 alias gb='git branch '
