@@ -219,7 +219,8 @@ newScript()
 alias exe='chmod +x'
 rechte()
 {
-
+  sudo chmod -cR $1 ~/.
+  sudo chmod -cR $1 /var/log/
 }
 
 alias gping='ping google.com -c 1'
