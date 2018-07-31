@@ -99,7 +99,7 @@ showHome() {
 # show extra options
 alias dir='ls -alv'
 #######################################
-##                Docker             ##
+##             Docker                ##
 #######################################
 
 # Show all alias related docker
@@ -122,7 +122,7 @@ docker-stop-all() { docker stop $(docker ps -a -q); }
 alias dstopall=docker-stop-all
 alias dockps='docker ps --format "table {{.ID}}\t{{.Image}}\t{{.Status}}\t{{.Names}}"'
 #######################################
-##      tar commandos        ##
+##      tar commandos                ##
 #######################################
 function extract {
  if [ -z "$1" ]; then
@@ -156,7 +156,7 @@ function extract {
 fi
 }
 #######################################
-##      Zip commandos        ##
+##      Zip commandos                ##
 #######################################
 # One COMPRESS method to rule them all
 # examples: $ compress <file.tar> <./path>
@@ -183,7 +183,7 @@ mkcd () {
 }
 
 #######################################
-##      Borg-Backup          ##
+##      Borg-Backup                  ##
 #######################################
 alias borg_check="sudo borg check" # borg check /pfad/zum/repo
 alias borg_list="sudo borg list" # borg list /pfad/zum/repo
@@ -191,13 +191,13 @@ alias borg_mount="sudo borg mount" # borg mount /pfad/zum/repo /mnt/repo
 alias borg_prune="sudo borg prune –dry-run –keep-daily=7 –keep-weekly=4" # + /pfad/zum/repo
 alias borg_info="sudo borg info" # borg info /pfad/zum/repo::ARCHIV
 #######################################
-##      Grep commandos       ##
+##      Grep commandos               ##
 #######################################
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 #######################################
-##      System       ##
+##      System                       ##
 #######################################
 # skript         Erstellt eine Datei, führt chmod +x aus und öffnet nano
 newScript()
@@ -264,11 +264,11 @@ alias rroh="docker restart openhab"
 alias ohrefresh="docker stop openhab && docker rm openhab && /docker/containers/openhab/custom/openhabdocker"
 alias ohexec="docker exec -it openhab bash"
 #######################################
-##      Netzwerk commandos        ##
+##      Netzwerk commandos           ##
 #######################################
 alias pingg='ping 192.168.2.$1'
 #######################################
-##      Cat commandos        ##
+##      Cat commandos                ##
 #######################################
 alias ali="cat /home/$USER/.bash_aliases | grep '^alias' | sed 's/alias //g' | grep -e '^[^=]*' "
 
