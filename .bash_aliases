@@ -218,7 +218,7 @@ newScript()
           nano $title
         fi
 }
-alias newScriptTemp = "/home/$USER/.newScriptTemp"
+alias newScriptTemp="/home/$USER/s.newScriptTemp"
 alias exe='chmod +x'
 rechte()
 {
