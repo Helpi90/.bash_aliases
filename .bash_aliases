@@ -218,8 +218,9 @@ newScript()
           nano $title
         fi
 }
-alias newScriptTemp="/home/$USER/s.newScriptTemp"
+
 alias exe='chmod +x'
+alias newScriptTemp="/home/$USER/.newScriptTemp"
 rechte()
 {
   sudo chmod -cR $1 ~/.
