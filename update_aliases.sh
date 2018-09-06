@@ -15,6 +15,7 @@ host="$(hostname)"
 DIR="$(realpath .)"
 # Download new bash_aliases #
 curl https://raw.githubusercontent.com/Defjam121/.bash_aliases/master/.bash_aliases > $DIR/.newAliases
+curl https://raw.githubusercontent.com/Defjam121/.bash_aliases/master/newBashScriptTemplate.sh > $DIR/.newScriptTemp
 file=".bash_aliases"
 
 
