@@ -22,17 +22,19 @@ chmod +x $DIR/.newScriptTemp
 file=".bash_aliases"
 
 # Prüfe ob scripte bereits geladen wurden
-if [ -e $scriptFolder/getbackupsize.sh ];
+if [ ! -e $scriptFolder/getbackupsize.sh ];
 then
-else
-    curl https://raw.githubusercontent.com/Defjam121/.bash_aliases/master/scripts/getbackupsize.sh > $scripte/getbackupsize.sh
+    curl https://raw.githubusercontent.com/Defjam121/.bash_aliases/master/scripts/getbackupsize.sh > $DIR/getbackupsize.sh
+    sudo mv $DIR/getbackupsize.sh $scriptFolder/getbackupsize.sh
+    sudo chmod +x $scriptFolder/getbackupsize.sh
 fi
 
 # Prüfe ob scripte bereits geladen wurden
-if [ -e $scriptFolder/template-sh.sh ];
+if [ ! -e $scriptFolder/template-sh.sh ];
 then
-else
-    curl https://raw.githubusercontent.com/Defjam121/.bash_aliases/master/scripts/template-sh.sh > $scripte/template-sh.sh
+    curl https://raw.githubusercontent.com/Defjam121/.bash_aliases/master/scripts/template-sh.sh > $DIR/template-sh.sh
+    sudo mv $DIR/template-sh.sh $scriptFolder/template-sh.sh
+    sudo chmod +x $scriptFolder/template-sh.sh
 fi
 
 if [ ! -f $DIR/$file 1>&2 ]

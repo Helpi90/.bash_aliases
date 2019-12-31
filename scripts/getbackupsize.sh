@@ -17,11 +17,6 @@
 # the following folders are calculated without included hardlinks.
 # This way you get the difference in size of each backup to the previous one
 
-
-DIR="$1"
-
-cd "$DIR"
-
-echo "du -hc -d 0 "`ls -trx --hide=log | tr '\n' ' '` | sh
+du $1 --block-size=1M --max-depth=1 |sort -nr
 
 exit 0
