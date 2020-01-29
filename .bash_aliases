@@ -56,8 +56,9 @@ function ps? () {
         ps aux | grep $1
 }
 # Gibt die Größen der Ordner an
-alias getsize="sudo /scripts/getbackupsize.sh $1"
+alias getsize="du $1 --block-size=1M --max-depth=1 |sort -nr"
 alias ping='ping -c 8'
+
 #######################################
 ## Find
 #######################################
@@ -98,6 +99,7 @@ showHome() {
 }
 # show extra options
 alias dir='ls -alv'
+alias showZombie='ps axo stat,ppid,pid,comm | grep -w defunct'
 #######################################
 ##             Docker                ##
 #######################################
