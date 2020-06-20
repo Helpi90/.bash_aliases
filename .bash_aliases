@@ -58,6 +58,9 @@ function ps? () {
 # Gibt die Größen der Ordner an
 alias getsize="du $1 --block-size=1M --max-depth=1 |sort -nr"
 alias ping='ping -c 8'
+# PythonSettings
+alias pip=pip3
+alias python=python3
 
 #######################################
 ## Find
