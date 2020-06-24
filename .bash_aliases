@@ -44,7 +44,7 @@ if [ $UID -ne 0 ]; then
   alias vi='sudo nano'
   alias edit='sudo nano'
   alias apt-get='sudo apt-get'
-  alias update='sudo apt-get update && sudo apt-get dist-upgrade -y'
+  #alias update='sudo apt-get update && sudo apt-get dist-upgrade -y'
   alias aptitude='sudo apt-get'
   alias service='sudo service'
   alias 7="chmod 777 -R ."
