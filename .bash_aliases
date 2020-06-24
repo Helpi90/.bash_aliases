@@ -44,7 +44,7 @@ if [ $UID -ne 0 ]; then
   alias vi='sudo nano'
   alias edit='sudo nano'
   alias apt-get='sudo apt-get'
-  alias update='sudo apt-get update && sudo apt-get upgrade'
+  alias update='sudo apt-get update && sudo apt-get dist-upgrade -y'
   alias aptitude='sudo apt-get'
   alias service='sudo service'
   alias 7="chmod 777 -R ."
@@ -59,8 +59,8 @@ function ps? () {
 alias getsize="du $1 --block-size=1M --max-depth=1 |sort -nr"
 alias ping='ping -c 8'
 # PythonSettings
-alias pip=pip3
-alias python=python3
+#alias pip=pip3
+#alias python=python3
 
 #######################################
 ## Find
